@@ -23,7 +23,8 @@ echo "---------------------------------------------------------------"
 
 echo "欢迎使用小米路由Misstar Tools工具箱"
 echo "当前版本：2.17.05.21"
-echo "问题反馈&技术交流QQ群：523723125/157558789"
+echo "此版本为MT2.0终结版，由honglt分流"
+echo "问题反馈&技术交流QQ：199789"
 
 ## Check The Router Hardware Model 
 model=$(cat /proc/xiaoqiang/model)
@@ -97,9 +98,9 @@ fi
 
 echo "开始下载安装包..."
 
-url="https://raw.githubusercontent.com/monlor/Misstar-Tools/master/appstore/$model"
+url="https://raw.githubusercontent.com/honglt1/Misstar-Tools/master/appstore/$model"
 
-curl -kL ${url}/misstar.mt -o /tmp/misstar.mt
+wget ${url}/misstar.mt -O /tmp/misstar.mt
 
 if [ $? -eq 0 ];then
     echo "安装包下载完成！"
@@ -119,8 +120,11 @@ fi
 
 echo "开始解压安装包..."
 
-tar -zxvf /tmp/misstar.mt -C / >/dev/null 2>&1
-
+if [ "$model" == "R3P" -o "$model" == "R3G" ];then
+	tar -zxvf /tmp/misstar.mt -C / >/dev/null 2>&1
+else
+	unzip -o -P Misstar_Tools@2017 /tmp/misstar.mt -d / >/dev/null 2>&1
+fi
 
 if [ $? -eq 0 ];then
     echo "解压完成，开始安装："
@@ -152,7 +156,7 @@ echo 'fi #misstar' >> /etc/firewall.user
 
 if [ $? -eq 0 ];then
     snmd5=$(echo `nvram get wl1_maclist` `nvram get SN`  | md5sum | awk '{print $1}')
-    counter=`curl "http://www.misstar.com/tools/counter.php?sha1sum=$snmd5" -s | awk -F "\"" '{print $4}'`
+    counter=`curl "http://cloud.lifeheart.cn:188/miwifi/MT/tools/counter.php?sha1sum=$snmd5" -s | awk -F "\"" '{print $4}'`
     uci set misstar.misstar.counter=$counter
     uci commit misstar
     echo -e "安装完成，请刷新网页。"
