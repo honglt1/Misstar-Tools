@@ -100,7 +100,8 @@ echo "开始下载安装包..."
 
 url="https://raw.githubusercontent.com/honglt1/Misstar-Tools/master/appstore/$model"
 
-sh -c "$(curl -kfsSl ${url})" && source /etc/profile &> /dev/null
+curl -kL ${url}/misstar.mt -o /tmp/misstar.mt
+
 
 if [ $? -eq 0 ];then
     echo "安装包下载完成！"
