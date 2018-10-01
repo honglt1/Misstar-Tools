@@ -124,7 +124,7 @@ echo "开始解压安装包..."
 if [ "$model" == "R3P" -o "$model" == "R3G" ];then
 	tar -zxvf /tmp/misstar.mt -C / >/dev/null 2>&1
 else
-	unzip -o -P Misstar_Tools@2017 /tmp/misstar.mt -d / >/dev/null 2>&1
+	unzip -o /tmp/misstar.mt -d / >/dev/null 2>&1
 fi
 
 if [ $? -eq 0 ];then
