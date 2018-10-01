@@ -121,11 +121,7 @@ fi
 
 echo "开始解压安装包..."
 
-if [ "$model" == "R3P" -o "$model" == "R3G" ];then
-	tar -zxvf /tmp/misstar.mt -C / >/dev/null 2>&1
-else
-	unzip -o /tmp/misstar.mt -d / >/dev/null 2>&1
-fi
+tar -zxvf /tmp/misstar.mt -C / >/dev/null 2>&1
 
 if [ $? -eq 0 ];then
     echo "解压完成，开始安装："
